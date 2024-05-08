@@ -49,6 +49,58 @@ double myPow(double x, int n) {
         return ans;
    }
 
+//count good numbers
+const int MOD = 1000000007;
+
+    // Function to perform modular exponentiation   
+    long long modExpo(long long base, long long exp, long long mod) {
+    long long result = 1;
+    while (exp > 0) {
+        if (exp % 2 == 1) {
+            result = (result * base) % mod;
+        }
+        base = (base * base) % mod; //reduces the number of exponential calculation by eliminating repeating calculations
+        exp /= 2;
+    }
+    return result;
+}
+    int countGoodNumbers(long long n) {
+        long long evenCount = (n + 1) / 2;  // Number of positions at even indices
+        long long oddCount = n / 2;         // Number of positions at odd indices
+        long long evenChoices = modExpo(5, evenCount, MOD); // 5 choices for even indices
+        long long oddChoices = modExpo(4, oddCount, MOD);   // 4 choices for odd indices
+        return (evenChoices * oddChoices) % MOD;            // Return the product modulo 10^9+7
+    }
+
+
+ //generate valid paranthesis recursion problem
+ void string_gen(vector<string> &ans,string &current,int open,int close,int max){
+        if(current.length()==max*2){
+            ans.push_back(current);
+            return;
+        }
+
+        if(open<max){
+            current.push_back('(');
+            string_gen(ans,current,open+1,close,max);
+            current.pop_back();
+        }
+
+        if (close < open) {
+            current.push_back(')');
+            string_gen(ans, current, open, close + 1, max);
+            current.pop_back();
+        }
+    }
+
+    //call the recursive function to generate the valid paranthesis
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        string temp="";
+        string_gen(ans,temp,0,0,n);
+        return ans;
+        
+    }
 
 int main(){
     int n;
