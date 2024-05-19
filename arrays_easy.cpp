@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//Simple for loop search
 int findLargestElement(int arr[], int n) {
  
   int max = arr[0];
@@ -12,6 +13,7 @@ int findLargestElement(int arr[], int n) {
   return max;
 }
 
+//two variable hierarchy
 int secondLargest(int arr[],int n)
 {
 	if(n<2)
@@ -19,13 +21,15 @@ int secondLargest(int arr[],int n)
     int large=INT_MIN,second_large=INT_MIN;
     int i;
     for (i = 0; i < n; i++) 
-    {
+    {   
+        //current number greater than largest
         if (arr[i] > large) 
         {
             second_large = large;
             large = arr[i];
         }
- 
+
+        //current number greater than second largest
         else if (arr[i] > second_large && arr[i] != large) 
         {
             second_large = arr[i];
@@ -34,10 +38,11 @@ int secondLargest(int arr[],int n)
     return second_large;                
 }
 
+//simple forward comparison with modulus
 bool check_sorted_rotated(vector<int>& nums) {
         int count=0;
         for(int i=0;i<nums.size();i++){
-            if(nums[i]>nums[(i+1)%(nums.size())]) 
+            if(nums[i]>nums[(i+1)%(nums.size())]) //modulus concept important for full check of the array
                 count++;   
         }
         if(count>1) 
@@ -46,6 +51,7 @@ bool check_sorted_rotated(vector<int>& nums) {
         return true;
     }
 
+//move newer unique elements to with the help of a static index pointer for latest unique
 int removeDuplicates(int arr[], int n)
 {
   int i = 0;
@@ -58,6 +64,7 @@ int removeDuplicates(int arr[], int n)
   return i + 1;
 }
 
+//new array with calculated index 
 void rotate_left(vector<int>& nums, int k) {
         vector<int> nums2(nums.size(),0);
         for(int i=0;i<nums.size();i++){
@@ -66,6 +73,7 @@ void rotate_left(vector<int>& nums, int k) {
         nums=nums2;
     }
 
+//another approach using reverse
 void Rotateeletoleft(int arr[], int n, int k)
 {
   // Reverse first k elements
@@ -76,6 +84,7 @@ void Rotateeletoleft(int arr[], int n, int k)
   reverse(arr,arr+n);
 }
 
+//static index pointer with newer values being swapped with latest index value
 void moveZeroes(vector<int>& nums) {
         int index=0;
         for(int i=0;i<nums.size();i++){
@@ -85,22 +94,24 @@ void moveZeroes(vector<int>& nums) {
         }
     }
 
-//for sorted
+
+//for sorted arrays
 vector < int > FindUnion(int arr1[], int arr2[], int n, int m) {
-  int i = 0, j = 0; // pointers
+  int i = 0, j = 0; // static pointers for individual arrays
   vector < int > Union; // Uninon vector
   while (i < n && j < m) {
-    if (arr1[i] <= arr2[j]) // Case 1 and 2
-    {
-      if (Union.size() == 0 || Union.back() != arr1[i])
-        Union.push_back(arr1[i]);
-      i++;
-    } else // case 3
-    {
-      if (Union.size() == 0 || Union.back() != arr2[j])
-        Union.push_back(arr2[j]);
-      j++;
-    }
+    if (arr1[i] <= arr2[j]) // Case 1 and 2  (smaller and equal; equal taken care via 2nd || check )
+        {
+            if (Union.size() == 0 || Union.back() != arr1[i])
+             Union.push_back(arr1[i]);
+             i++;
+         } 
+    else // case 3
+        {
+          if (Union.size() == 0 || Union.back() != arr2[j])
+            Union.push_back(arr2[j]);
+          j++;
+        }
   }
   while (i < n) // IF any element left in arr1
   {
@@ -120,12 +131,15 @@ vector < int > FindUnion(int arr1[], int arr2[], int n, int m) {
 //intersection is similar 3 pointers a1(arr1),a2(arr2),a3(interection) 
 //if arr1[a1]==arr2[a2] insert insertion and increment all indexes else increase the index for smaller element 
 
-//Sum
+
+//Summation method
 int missingNumber(vector<int>& nums) {
         int sum=(nums.size()*nums.size()+nums.size())/2;
         int arr_sum=accumulate(nums.begin(),nums.end(),0);
         return abs(arr_sum-sum);
     }
+
+
 //XOR
 int missingNumber(vector<int>&a, int N) {
 
@@ -140,6 +154,7 @@ int missingNumber(vector<int>&a, int N) {
     return (xor1 ^ xor2); // the missing number
 }    
 
+//only number appearing once others appearing twice XOR concept
 int singleNumber(vector<int>& nums) {
         int n=0;
         for(int i=0;i<nums.size();i++){
@@ -148,7 +163,8 @@ int singleNumber(vector<int>& nums) {
         return n;
     }
 
-//hashing
+//positives and negatives    
+//hashing prefix sum (if {sum-k} exists previously that means current from that {index + 1} till current index exist new subarray with the sum k)
 int getLongestSubarray(vector<int>& a, long long k) {
     int n = a.size(); // size of the array.
 
@@ -173,7 +189,7 @@ int getLongestSubarray(vector<int>& a, long long k) {
             maxLen = max(maxLen, len);
         }
 
-        //Finally, update the map checking the conditions:
+        //Finally, update the map checking the conditions since there is possibility of zeros and require the longest:
         if (preSumMap.find(sum) == preSumMap.end()) {
             preSumMap[sum] = i;
         }
@@ -182,7 +198,8 @@ int getLongestSubarray(vector<int>& a, long long k) {
     return maxLen;
 }
 
-//two pointer
+//only positives and zeros
+//two pointer type of sliding window (if sum>k drop the leftmost item and see the how many more can be accomodated till process repeats)
 int getLongestSubarray(vector<int>& a, long long k) {
     int n = a.size(); // size of the array.
 
@@ -202,7 +219,7 @@ int getLongestSubarray(vector<int>& a, long long k) {
             maxLen = max(maxLen, right - left + 1);
         }
 
-        // Move forward thw right pointer:
+        // Move forward the right pointer:
         right++;
         if (right < n) sum += a[right];
     }
@@ -210,6 +227,7 @@ int getLongestSubarray(vector<int>& a, long long k) {
     return maxLen;
 }
 
+//simple hashing and querying for pair while travesing
 vector<int> twoSum(int n, vector<int> &arr, int target) {
     unordered_map<int, int> mpp;
     for (int i = 0; i < n; i++) {
@@ -222,6 +240,8 @@ vector<int> twoSum(int n, vector<int> &arr, int target) {
     }
     return { -1, -1};
 }
+
+//two pointer approach to verify if pair exists
 string istwoSum(int n, vector<int> &arr, int target) {
     sort(arr.begin(), arr.end());
     int left = 0, right = n - 1;
@@ -236,6 +256,7 @@ string istwoSum(int n, vector<int> &arr, int target) {
     return "NO";
 }
 
+//count and insert
 void sortColors(vector<int>& nums) {
         int zeroes=0,ones=0,twos=0;
         for(int i=0;i<nums.size();i++){
@@ -248,7 +269,8 @@ void sortColors(vector<int>& nums) {
         while(ones--) nums[index++]=1;
         while(twos--) nums[index++]=2;
     }
-//Ducth-Flag Algo three elements
+   
+//Ducth-Flag Algo three elements (array below low and after high is assumed to be sorted)
 void sortArray(vector<int>& arr, int n) {
 
     int low = 0, mid = 0, high = n - 1; // 3 pointers
@@ -269,7 +291,7 @@ void sortArray(vector<int>& arr, int n) {
     }
 }
 
-//Moore's voting Algo
+//Moore's voting Algo (simply put majority element will have extra element and will replace the ele by the end(dominance))
 int majorityElement(vector<int>& nums) {
         int count=0;
         int ele;
@@ -286,6 +308,7 @@ int majorityElement(vector<int>& nums) {
         return ele;
     }
 
+//pick the previous subarray iff positive cumulative sum (max!=k specific sum)
 int maxSubArray(vector<int>& nums) {
         int start=0,end=0,max=INT_MIN,sum=0;
         for(int i=0;i<nums.size();i++){
@@ -305,7 +328,7 @@ int maxSubArray(vector<int>& nums) {
         return max;
     }
 
-//dp stocks buy and sell 1
+//dp stocks buy and sell 1 ( update the min and max while traversing)
 int maxProfit(vector<int>& prices) {
         int mini=prices[0],profit=0;
         for(int i=1;i<prices.size();i++){
@@ -315,7 +338,7 @@ int maxProfit(vector<int>& prices) {
         return profit;
     }
 
-// n/2 positive and negative
+// n/2 positive and negative (simple alloting position in new array)
 vector<int> rearrangeArray(vector<int>& nums) {
         int positive_in=0,negative_in=1;
         vector<int> arr(nums.size(),0);
@@ -393,25 +416,30 @@ vector<int> RearrangebySign(vector<int>A, int n){
 //elements sorted till a point dip
 void nextPermutation(vector<int>& nums) {
         int n=nums.size(),dip=-1;
+        //find the the dip from last element to find the possibility of next permutation
         for(int i=n-2;i>=0;i--){
             if(nums[i]<nums[i+1]){
                 dip=i;
                 break;
             }
         }
+        //no possible next permutation
         if(dip==-1){
             reverse(nums.begin()+dip+1,nums.end());
             return;
         }
+        //generate the next permutation by switching last greater character
         for(int i=n-1;i>dip;i--){
             if(nums[dip]<nums[i]){
                 swap(nums[dip],nums[i]);
                 break;
             }
         }
+        //right now the combination is after dip is the last permutation(decreasing order) need to change it to smallest for it to be exact succession of the overall string
         reverse(nums.begin()+dip+1,nums.end());
     }
 
+//simple comparison and pushing
 vector<int> printLeaders(int arr[], int n) {
 
   vector<int> ans;
@@ -454,7 +482,7 @@ int longestConsecutive(vector<int>& nums) {
 void setZeroes(vector<vector<int>>& matrix) {
         int n=matrix.size();
         int m=matrix[0].size();
-        int col0=1;
+        int col0=1; //make a different variable for column 0 specifically; using matrix[0][0] for the row0
 
         //Finding and marking the zeores in first row and column
         for(int i=0;i<n;i++){
@@ -516,6 +544,7 @@ void rotate(vector<vector<int>>& matrix) {
         }
     }
 
+//simple implementation using stl
 void merge(long long arr1[], long long arr2[], int n, int m) {
 
     //Declare 2 pointers:

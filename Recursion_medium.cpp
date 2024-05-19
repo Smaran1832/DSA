@@ -102,6 +102,8 @@ const int MOD = 1000000007;
         
     }
 
+    
+
 int main(){
     int n;
     cin>>n;
