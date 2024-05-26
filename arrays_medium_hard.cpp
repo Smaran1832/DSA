@@ -21,7 +21,7 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
             }
             right--;
 
-            //important conditions
+            //important conditions to check again
             if(top<=bottom){
                 for(int i=right;i>=left;i--){
                 arr.push_back(matrix[bottom][i]);
@@ -42,9 +42,11 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
         return arr;
     }
 
+//Mathematical Calaculations
 class PascalTriangleSolution {
 public:
 
+    //reduced combinations computations
     long long combination(int n,int r){
         long long res=1;
         for(int i=0;i<=r;i++){
@@ -150,6 +152,7 @@ vector<vector<int>> fourSum(vector<int>& nums, int target) {
 
     return ans;
 }
+
 
 int subarraysWithXorK(vector<int> a, int k) {
     int n = a.size(); //size of the given array.
