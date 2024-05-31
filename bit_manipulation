@@ -1,0 +1,45 @@
+pair<int, int> get_swap(int a, int b){
+        a=a^b;
+        b=a^b;
+        a=a^b;
+        return {a,b};
+    }
+
+string oddEven(int N){ //faster odd even
+        if(N&1) return "odd";
+        else return "even";
+    }    
+
+void bitManipulation(int num, int i) {
+        i--;//0 based indexing(varies)  get ith, set ith, clear ith 
+        cout<<((num & 1<<i)!=0)<<" "<<(num | 1<<i)<<" "<<(num & (~(1<<i)));
+    }
+
+//toggle ith bit XOR    
+
+bool isPowerOfTwo(int n) {
+        if(n<=0) return false;
+        else return (n&n-1)==0;
+    }
+
+int setRighmostUnsetBit(int N)
+    {
+        if (N == 0) return 1;  // Special case for 0, as it has no set bits.
+        return N | (N + 1 - (N & (N + 1)));
+    }    
+
+int UnsetRighmostSetBit(int N)
+    {
+        if (N == 0) return 1;  // Special case for 0, as it has no set bits.
+        return (N & (N - 1)));
+    }  
+
+int countSetBits(int n){
+        int counter=0;
+        while(n!=0){
+            n=(n&(n-1));
+            counter++;
+        }
+        
+        return counter;
+    }    
