@@ -163,6 +163,17 @@ int singleNumber(vector<int>& nums) {
         return n;
     }
 
+//all numbers thrice except one pattern recognition 
+int singleNumber(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        for(int i=1;i<nums.size();i+=3){
+            if(nums[i]!=nums[i-1]){
+                return nums[i-1];
+            }
+        }
+        return nums.back();
+    }
+
 //positives and negatives    
 //hashing prefix sum (if {sum-k} exists previously that means current from that {index + 1} till current index exist new subarray with the sum k)
 int getLongestSubarray(vector<int>& a, long long k) {
