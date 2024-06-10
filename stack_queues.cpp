@@ -1,4 +1,6 @@
-------------------------------------------------//stack with the help of arrays
+
+
+//------------------------------------------------//stack with the help of arrays
 class MyStack
 {
 private:
@@ -24,7 +26,7 @@ int MyStack :: pop()
     else return -1;
 }
 
-----------------------------------------------//queue with the help of arrays
+//----------------------------------------------//queue with the help of arrays
 class MyQueue {
 private:
     int arr[100005];
@@ -162,4 +164,55 @@ vector<int> nextGreaterElements(vector<int>& nums) {
         st.push(nums[i % n]);
       }
       return nge;
+    }    
+
+// Function to convert an infix expression to a postfix expression.
+     int precedence(char op) {
+        if(op == '^') return 3;
+        else if(op == '*' || op == '/') return 2;
+        else if(op == '+' || op == '-') return 1;
+        return -1;  // For '('
+    }
+
+    string infixToPostfix(string s) {
+        string ans;
+        stack<char> st;
+        for(int i = 0; i < s.size(); i++) {
+            char c = s[i];
+
+            // If the character is an operand, add it to output.
+            if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+                ans += c;
+            }
+            // If the character is '(', push it to stack.
+            else if(c == '(') {
+                st.push(c);
+            }
+            // If the character is ')', pop and output from the stack
+            // until an '(' is encountered.
+            else if(c == ')') {
+                while(!st.empty() && st.top() != '(') {
+                    ans += st.top();
+                    st.pop();
+                }
+                if (!st.empty()) st.pop();  // pop '('
+            }
+            else {  // operator encountered
+                while(!st.empty() && precedence(c) <= precedence(st.top())) {
+                    ans += st.top();
+                    st.pop();
+                }
+                st.push(c);
+            }
+        }
+
+        // Pop all the operators from the stack
+        while(!st.empty()) {
+            if(st.top() != '(') {
+                ans += st.top();
+            }
+            st.pop();
+        }
+
+        return ans;
     }    
