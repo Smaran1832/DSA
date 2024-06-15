@@ -215,4 +215,89 @@ vector<int> nextGreaterElements(vector<int>& nums) {
         }
 
         return ans;
+    }
+
+//water trapped between walls
+    int trap(vector<int>& height) {
+        int leftmax=0;
+        int rightmax=0;
+        int water=0;
+        int left=0;
+        int right=height.size()-1;
+        while(left<=right){
+            if(leftmax<=rightmax){
+                if(height[left]<=leftmax){
+                    water+=leftmax-height[left++];
+                }else{
+                    leftmax=height[left++];
+                }
+            }else{
+                if(height[right]<=rightmax){
+                    water+=rightmax-height[right--];
+                }else{
+                    rightmax=height[right--];
+                }
+            }
+            
+        }
+        return water;
     }    
+
+vector<int> asteroidCollision(vector<int>& asteroids) {
+    vector<int> st;
+    for (int i = 0; i < asteroids.size(); ++i) {
+        bool destroyed = false;
+        while (!st.empty() && st.back() > 0 && asteroids[i] < 0) {
+            if (abs(st.back()) == abs(asteroids[i])) {
+                st.pop_back();
+                destroyed = true;
+                break;
+            } else if (abs(st.back()) > abs(asteroids[i])) {
+                destroyed = true;
+                break;
+            } else {
+                st.pop_back();
+            }
+        }
+        if (!destroyed) {
+            st.push_back(asteroids[i]);
+        }
+    }
+    return st;
+}
+
+//minimum element in subarrays
+    int sumSubarrayMins(vector<int>& arr) { 
+        int n = arr.size();
+    const int MOD = 1e9 + 7;
+
+    std::vector<int> left(n), right(n);
+    std::stack<int> s;
+
+    // Find number of previous less element for each element
+    for (int i = 0; i < n; ++i) {
+        while (!s.empty() && arr[s.top()] > arr[i]) s.pop();
+        left[i] = s.empty() ? -1 : s.top();
+        s.push(i);
+    }
+
+    // Clear the stack for the next use
+    while (!s.empty()) s.pop();
+
+    // Find nyumber of next less element for each element
+    for (int i = n - 1; i >= 0; --i) {
+        while (!s.empty() && arr[s.top()] >= arr[i]) s.pop();
+        right[i] = s.empty() ? n : s.top();
+        s.push(i);
+    }
+
+    // Calculate the result using the indices from left and right
+    long long result = 0;
+    for (int i = 0; i < n; ++i) {
+        long long l = i - left[i];
+        long long r = right[i] - i;
+        result = (result + arr[i] * l * r) % MOD;
+    }
+
+    return result;
+    }
