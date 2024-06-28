@@ -301,3 +301,71 @@ vector<int> asteroidCollision(vector<int>& asteroids) {
 
     return result;
     }
+
+
+//remove k digits to result in smallest
+// stack should be in increasing order else pop 
+    string removeKdigits(string num, int k) {
+    string result;  // Use a string to build the result
+    for (char digit : num) {
+        while (!result.empty() && result.back() > digit && k > 0) {
+            result.pop_back();  // Remove the last character
+            k--;
+        }
+        if (!result.empty() || digit != '0') {  // Avoid leading zeros
+            result.push_back(digit);
+        }
+    }
+
+    // Remove the remaining digits from the end if k > 0
+    while (k > 0 && !result.empty()) {
+        result.pop_back();
+        k--;
+    }
+
+    return result.empty() ? "0" : result;  // Check for empty result to return "0"
+    }
+
+//Largest histogram plus maximal rectangle (parent problem) 
+int maximum_area(vector<int> histo){
+      stack < int > st;
+      int maxA = 0;
+      int n = histo.size();
+      //stack made will monotonically increasing allowing us to find the right and left smaller by logic/observation 
+      //since the stack holds monotonic increasing index values the second stack holds left smaller while the size of array 
+      //will serve as a right smaller index (since monotonic increasing means if greater it would have entered the stack,
+      // if smaller we woudn't have the current element with us; it would have already been removed to maintain monotonicity)
+      for (int i = 0; i <= n; i++) {
+        while (!st.empty() && (i == n || histo[st.top()] >= histo[i])) {
+          int height = histo[st.top()]; //current min height
+          st.pop(); //current element 
+          int width;
+          if (st.empty())
+            width = i;
+          else
+            width = i - st.top() - 1;
+          maxA = max(maxA, width * height);
+        }
+        st.push(i); //push current element
+      }
+      return maxA;
+    }
+
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int r=matrix.size();
+        int c=matrix[0].size();\
+        int maxArea=0;
+        vector<int> current_recs(c,0);
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(matrix[i][j]=='0'){
+                    current_recs[j]=0;
+                }else{
+                    current_recs[j]++;
+                }
+            }
+            maxArea=max(maxArea,maximum_area(current_recs));
+        }
+
+        return maxArea;
+    }
