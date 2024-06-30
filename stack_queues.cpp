@@ -369,3 +369,44 @@ int maximum_area(vector<int> histo){
 
         return maxArea;
     }
+
+ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> dq;
+        vector<int> ans;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            while(!dq.empty() && dq.front()<=i-k) dq.pop_front(); //renove the earlier index values
+            
+            while(!dq.empty() && nums[dq.back()]<nums[i]) dq.pop_back(); //maintaining a monotonic decreasing stack since latest greatest element will serve as max for current and most probably future arrays
+
+            dq.push_back(i); //insert index at decreasing rank 
+            
+            if(i>=k-1) ans.push_back(nums[dq.front()]);
+
+
+        }
+        return ans;
+        
+    }
+
+
+//span of days the stock price was lower or equal consequetively
+class StockSpanner {
+private:
+
+    stack<pair<int,int>> st;
+
+public:
+    StockSpanner() {
+    }
+    
+    int next(int price) {
+        int counter=1;
+        while(!st.empty() && price>=st.top().first){
+            counter+=st.top().second;
+            st.pop();
+        }
+        st.push({price,counter});
+        return counter;
+    }
+};    
