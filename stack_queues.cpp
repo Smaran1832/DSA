@@ -409,4 +409,45 @@ public:
         st.push({price,counter});
         return counter;
     }
-};    
+};
+
+//Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+        stack<int> st;
+        //push all members into the stack
+        for(int i=0;i<n;i++){
+            st.push(i);
+        }
+        
+        while(st.size()!=1){
+            
+            //retrieve the members
+            int mem1=st.top();
+            st.pop();
+            int mem2=st.top();
+            st.pop();
+            
+            //check who knows the others (celeb does not know anyone)
+            if(M[mem1][mem2]==1){
+                st.push(mem2); //cannot be celeb
+            }else{
+                st.push(mem1); //can be celeb
+            }
+            
+        }
+        
+        int candidate=st.top();
+        bool celeb=1;
+        
+        for(int i=0;i<n;i++){
+            if(candidate!=i && (M[candidate][i]==1 || M[i][candidate]!=1)){
+                celeb=0;
+                break;
+            } 
+        }
+        
+        return (celeb)?candidate:-1;
+        
+        
+    }
