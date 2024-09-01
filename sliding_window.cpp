@@ -67,3 +67,80 @@ int characterReplacement(string s, int k) {
 
         return res;
     }
+
+//Binary subarrays with sum k, optimized to constant space 
+    int numSubarraysWithLessThanSum(vector<int>& nums, int goal){
+        if(goal<0) return 0; //necessary edge case
+        int l=0,r=0,res=0,cumsum=0;
+        while(r<nums.size()){
+            cumsum+=nums[r];
+            while(cumsum>goal){
+                    cumsum-=nums[l];
+                    l++;
+                }
+            res+=(r-l+1);
+            r++;
+        }
+        return res;
+    }
+
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+       return numSubarraysWithLessThanSum(nums,goal)-numSubarraysWithLessThanSum(nums,goal-1);
+    }
+
+//nice subarrays (subbarrays with k odd integers)
+//we will change the question into binary representation of the number being odd and solve for sum k
+    int numSubarraysWithLessThanSum(vector<int>& nums, int goal){
+        if(goal<0) return 0; //necessary edge case
+        int l=0,r=0,res=0,cumsum=0;
+        while(r<nums.size()){
+            cumsum+=nums[r]%2;
+            while(cumsum>goal){
+                    cumsum-=nums[l]%2;
+                    l++;
+                }
+            res+=(r-l+1);
+            r++;
+        }
+        return res;
+    }
+
+
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        return numSubarraysWithLessThanSum(nums,k)-numSubarraysWithLessThanSum(nums,k-1);
+    }
+
+
+//number of all substrings that contain all 3 latters; Once all keys are encountered we can 
+// start adding letters before it to generate larger valid arrays 
+ int numberOfSubstrings(string s) {
+        vector<int> mpp(3,-1);
+        int counter=0;
+        for(int i=0;i<s.size();i++){
+            //update the latest index
+            mpp[s[i]-'a']=i;
+            if(mpp[0]!=-1 && mpp[1]!=-1 && mpp[2]!=-1){
+                counter+=min({mpp[0],mpp[1],mpp[2]})+1;
+            }
+        }
+        return counter;
+    }   
+
+//max points alternate end pickings; check all the possible answers
+int maxScore(vector<int>& cardPoints, int k) {
+        int n=cardPoints.size();
+        if(n<k){
+            return accumulate(cardPoints.begin(),cardPoints.end(),0);
+        }
+
+        int points=0,lsum=0,rsum=0;
+        lsum=accumulate(cardPoints.begin(),cardPoints.begin()+k,0);
+        points=lsum;
+        for(int i=1;i<=k;i++){
+            lsum-=cardPoints[k-i];
+            rsum+=cardPoints[n-i];
+            points=max(points,lsum+rsum);
+        }
+
+        return points;
+    }    
