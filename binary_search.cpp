@@ -181,7 +181,7 @@ int findMin(vector<int>& nums) {
         return mini;
     }
 
-//number of rotations in the array
+//number of rotations in the array meaning how many elements have been rotated
 int findKRotation(vector<int> &arr) {
     int low = 0, high = arr.size() - 1;
     int ans = INT_MAX;
@@ -364,7 +364,7 @@ int calculateTotalHours(vector<int> &v, int hourly) {
             if(bloomDay[i]<=d){
                 cnt++;
             }else{
-                boq+=cnt/k;
+                boq+=cnt/k; //takes care of the adajacency contrainst
                 cnt=0;
             }
         }
@@ -397,9 +397,9 @@ int calculateTotalHours(vector<int> &v, int hourly) {
 int possibleDay(vector<int>& weights,int w){
         int cnt=1,totalw=0;
         for(int i=0;i<weights.size();i++){
-            if(totalw+weights[i]>w){
+            if(totalw+weights[i]>w){ //increase if the weight goes above the daily limit
                 cnt++;
-                totalw=weights[i];
+                totalw=weights[i]; 
             }else{
                 totalw+=weights[i];
             }
@@ -411,8 +411,8 @@ int possibleDay(vector<int>& weights,int w){
         
         int end=0,start=INT_MIN;
         for(int i=0;i<weights.size();i++){
-            end+=weights[i];
-            start=max(start,weights[i]);
+            end+=weights[i];  //end will be all the weights alltogether
+            start=max(start,weights[i]); //minimum limit we need is the max weight of the item 
         }
 
         int mid;
@@ -450,14 +450,14 @@ int possibleDay(vector<int>& weights,int w){
         return start;
     }
 
-//kth missing in incresing missing
+//kth missing number in increasing missing
 int findKthPositive(vector<int>& arr, int k) {
         int start=0;
         int end=arr.size()-1;
         int mid;
         while(start<=end){
             mid=start+(end-start)/2;
-            if(arr[mid]-mid>k){
+            if(arr[mid]-mid>k){ //number of mising numbers greater than k
                 end=mid-1;
             }else{
                 start=mid+1;
@@ -570,7 +570,7 @@ int possibleSplit(vector<int>& nums, int sum){
 //priority queue approach
 long double minimiseMaxDistance(vector<int> &arr, int k) {
     int n = arr.size(); //size of array.
-    vector<int> howMany(n - 1, 0);
+    vector<int> howMany(n - 1, 0); //since we create only current index to track space. it would help keep track of the dynamic placement of the stations
     priority_queue<pair<long double, int>> pq;
 
     //insert the first n-1 elements into pq
@@ -591,7 +591,7 @@ long double minimiseMaxDistance(vector<int> &arr, int k) {
         howMany[secInd]++;
 
         long double inidiff = arr[secInd + 1] - arr[secInd];
-        long double newSecLen = inidiff / (long double)(howMany[secInd] + 1);
+        long double newSecLen = inidiff / (long double)(howMany[secInd] + 1); //will sort of keep a dynamic track of space
         pq.push({newSecLen, secInd});
     }
 
@@ -638,7 +638,7 @@ long double minimiseMaxDistance(vector<int> &arr, int k) {
     return high;
 }
 
-//median of 2 sorted array
+//median of 2 sorted array; generating a symmetry (two equal sections l and r )
  double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         int size1=nums1.size();
         int size2=nums2.size();

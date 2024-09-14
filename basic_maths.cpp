@@ -138,7 +138,7 @@ double myPow(double x, int n) {
    }
 
 
-//sieve of erathosthenes //note bool summation takes better to just have int 
+//sieve of erathosthenes //note bool summation takes time better to just have int 
 //count between range can be solved via cumulative sum
 int countPrimes(int n) {
         if(n==0 || n==1) return 0;

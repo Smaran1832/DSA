@@ -56,6 +56,7 @@ int removeDuplicates(int arr[], int n)
 {
   int i = 0;
   for (int j = 1; j < n; j++) {
+    //j is moving index exploring the new indexes
     if (arr[i] != arr[j]) {
       i++;
       arr[i] = arr[j];
@@ -163,7 +164,7 @@ int singleNumber(vector<int>& nums) {
         return n;
     }
 
-//all numbers thrice except one pattern recognition 
+//all numbers thrice except one; pattern recognition 
 int singleNumber(vector<int>& nums) {
         sort(nums.begin(),nums.end());
         for(int i=1;i<nums.size();i+=3){
@@ -427,7 +428,7 @@ vector<int> RearrangebySign(vector<int>A, int n){
 //elements sorted till a point dip
 void nextPermutation(vector<int>& nums) {
         int n=nums.size(),dip=-1;
-        //find the the dip from last element to find the possibility of next permutation
+        //find the dip from last element to find the possibility of next permutation
         for(int i=n-2;i>=0;i--){
             if(nums[i]<nums[i+1]){
                 dip=i;
@@ -472,7 +473,7 @@ vector<int> printLeaders(int arr[], int n) {
   return ans;
 }
 
-//longest consecutive sequence that can be made
+//longest consecutive sequence that can be made from the set of numbers
 int longestConsecutive(vector<int>& nums) {
         unordered_set<int> st(nums.begin(),nums.end());
         int count=0,maxi=0;

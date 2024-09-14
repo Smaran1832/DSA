@@ -144,3 +144,36 @@ int maxScore(vector<int>& cardPoints, int k) {
 
         return points;
     }    
+
+
+//subarrays with exactly k elements 2N run neccessary due to the of checking elements 
+//previous to l for the future cases or else same case as N^2
+    int subbarrayLessThanK(vector<int>& nums, int k){
+         unordered_map<int,int> mpp;
+        int l=0,r=0,subbs=0;
+        while(r<nums.size()){
+            mpp[nums[r]]++;
+            
+            while(mpp.size()>k){
+                if(mpp[nums[l]]==1){
+                    mpp.erase(nums[l]);
+                }else{
+                    mpp[nums[l]]--;
+                }
+                
+                l++;
+            }
+
+            subbs+=(r-l+1);
+            r++;
+        }
+
+        return subbs;
+    }
+
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+       return subbarrayLessThanK(nums,k)-subbarrayLessThanK(nums,k-1);
+    }    
+
+
+    

@@ -384,6 +384,64 @@ int merge(vector<int>& nums,int start,int mid,int end){
         return maxProduct;
     }
 
+
+// Helper function to rotate the matrix by 90 degrees
+vector<vector<int>> rotate90(vector<vector<int>>& image) {
+    int n = image.size();
+    vector<vector<int>> rotated(n, vector<int>(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            rotated[j][n - i - 1] = image[i][j];
+        }
+    }
+    return rotated;
+}
+
+// Helper function to rotate the matrix by 180 degrees
+vector<vector<int>> rotate180(vector<vector<int>>& image) {
+    int n = image.size();
+    vector<vector<int>> rotated(n, vector<int>(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            rotated[n - i - 1][n - j - 1] = image[i][j];
+        }
+    }
+    return rotated;
+}
+
+// Helper function to rotate the matrix by 270 degrees
+vector<vector<int>> rotate270(vector<vector<int>>& image) {
+    int n = image.size();
+    vector<vector<int>> rotated(n, vector<int>(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            rotated[n - j - 1][i] = image[i][j];
+        }
+    }
+    return rotated;
+}
+
+// Function to flip the matrix vertically
+vector<vector<int>> verticalFlip(vector<vector<int>>& image) {
+    int n = image.size();
+    for (int i = 0; i < n / 2; ++i) {
+        swap(image[i], image[n - i - 1]);
+    }
+    return image;
+}
+
+// Function to flip the matrix horizontally
+vector<vector<int>> horizontalFlip(vector<vector<int>>& image) {
+    int n = image.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n / 2; ++j) {
+            swap(image[i][j], image[i][n - j - 1]);
+        }
+    }
+    return image;
+}
+
+
 int main(){
     return 0;
 }
