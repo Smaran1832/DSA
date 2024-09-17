@@ -175,5 +175,26 @@ int maxScore(vector<int>& cardPoints, int k) {
        return subbarrayLessThanK(nums,k)-subbarrayLessThanK(nums,k-1);
     }    
 
+//longest subbarray with k unique elements;
+int longestKSubstr(string s, int k) {
+         unordered_map<char,int> mpp;
+         int l=0,r=0,max_len=-1;
+         
+         while(r<s.size()){
+             mpp[s[r]]++;
+                 while(mpp.size()>k){
+                     if(mpp[s[l]]==1) mpp.erase(s[l]);
+                     else mpp[s[l]]--;
+                     l++;
+                 }
+             if(mpp.size()==k){
+                 max_len=max(max_len,r-l+1);
+             }
+             r++;
+         }
+        
+        return max_len; 
+    }
 
+    
     
