@@ -70,6 +70,7 @@ int myAtoi(string s) {
     return static_cast<int>(result);
     }    
 
+//sort of brute force; for each element expand outwards till possible
 string longestPalindrome(string s) {
         int end=s.size()-1;
         string res(1,s[0]);
@@ -103,6 +104,7 @@ string longestPalindrome(string s) {
         return res;
     }
 
+//beauty sum of all substring 
     int beautySum(string s) {
         long sum=0;
         for(int i=0;i<s.size();i++){

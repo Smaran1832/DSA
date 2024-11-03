@@ -271,6 +271,8 @@ int findPeakElement(vector<int>& nums) {
     }
 
 
+//The focus is shifted to the answer spaces rather then actual array values
+
 int floorSqrt(int n) {
     int low = 1, high = n;
     //Binary search on the answers:
@@ -520,6 +522,8 @@ int countStudents(vector<int> &arr, int pages) {
 int findPages(vector<int>& arr, int n, int m) {
     //book allocation impossible:
     if (m > n) return -1;
+    //As the answer does not need it; we need not to check for the condition each students a book if the above is satisfied
+    //since after the max is allotted we can always allot the different books with others with pages less than limit.    
 
     int low = *max_element(arr.begin(), arr.end());
     int high = accumulate(arr.begin(), arr.end(), 0);
@@ -587,6 +591,8 @@ long double minimiseMaxDistance(vector<int> &arr, int k) {
         pq.pop();
         int secInd = tp.second;
 
+        //the Problem here is since we are the ones placing the gas station it can be dynamically placed hence
+        // we keep a track of number of staions being placed in the gap rather than simply plqcing and reducing the size
         //insert the current gas station:
         howMany[secInd]++;
 

@@ -77,7 +77,7 @@ public:
     }
 };
 
-//3 SUM
+//3 SUM; triplets that add up to 0
 vector<vector<int>> triplet(int n, vector<int> &arr) {
     vector<vector<int>> ans;
     sort(arr.begin(), arr.end());
@@ -167,10 +167,13 @@ int subarraysWithXorK(vector<int> a, int k) {
 
         //By formula: x = xr^k:
         int x = xr ^ k;
+        //find the needed xor (reverse engineer)
 
         // add the occurrence of xr^k
         // to the count:
         cnt += mpp[x];
+        //if exist will be added to the count 
+
 
         // Insert the prefix xor till index i
         // into the map:
@@ -192,6 +195,7 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
             }else{
                 ans.push_back(intervals[i]);
             }
+            //since sorted it will either be added to existing or as a new interval
         }
         return ans;
     }
@@ -214,7 +218,7 @@ vector<int> findMissingRepeatingNumbers(vector<int> a) {
     //S-Sn = X-Y:
     long long val1 = S - SN;
 
-    // S2-S2n = X^2-Y^2:
+    // S2-S2n = X^2-Y^2  = (X-Y)(X+Y):
     long long val2 = S2 - S2N;
 
     //Find X+Y = (X^2-Y^2)/(X-Y):
@@ -278,7 +282,7 @@ vector<int> findMissingRepeatingNumbers(vector<int> a) {
     return {one, zero};
 }
 
-//count inversions
+//count inversions (left eles > how many right eles)
 int merge(vector<int> &arr, int low, int mid, int high) {
     vector<int> temp; // temporary array
     int left = low;      // starting index of left half of arr
@@ -297,6 +301,7 @@ int merge(vector<int> &arr, int low, int mid, int high) {
         else {
             temp.push_back(arr[right]);
             cnt += (mid - left + 1); //Modification 2
+            //all remaining eles in left are greater than current right ele
             right++;
         }
     }
@@ -345,7 +350,7 @@ int merge(vector<int>& nums,int start,int mid,int end){
         int cnt=0;
         while(index1<=mid && index2<=end){
             if(nums[index1]>(2LL*nums[index2])){
-                cnt+=mid-index1+1;
+                cnt+=mid-index1+1; //similar to previous problem
                 index2++;
             }else{
                 index1++;

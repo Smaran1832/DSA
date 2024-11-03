@@ -7,13 +7,16 @@ struct node {
 	double doub; 
 	char x; 
 
-	node(str_, num_, doub_, x_) {
+	node(){}
+
+	node(string str_, int num_, double doub_, char x_) {
 		str = str_; 
 		num = num_; 
 		doub = doub_; 
 		x = x_; 
 	}
 };
+
 array<int, 3> arr; // -> {0, 0, 0} 
 
 // max size of 10^7 -> int, double, char 
@@ -42,13 +45,13 @@ bool comp(pair<int,int> el1, pair<int,int> el2) {
 }
  
 // arr 
-// pair<int,int> arr[] = {{1, 4},{5, 2},{5, 9}};
+pair<int,int> arr[] = {{1, 4},{5, 2},{5, 9}};
 // after sorting arr[] = {{1, 4}, {5, 9}, {5, 2}}
-sort(arr, arr+3, comp); 
+sort(arr, arr + 3, comp); 
 
 // sorts in ascending according to first 
 // if first is equal then sorts according to second in ascending 
-sort(arr, arr+3);
+sort(arr, arr + 3);
 // i want you to sort this in such a way 
 // that the element who have first element in pair smaller
 // appears first, and if first is equal then sort according 
@@ -75,13 +78,13 @@ int main() {
 	cout << raj::getVal() << endl; // prints 50 
 
 
-	int 
-	double 
-	char
+	// int 
+	// double 
+	// char
 	
 
 	// create a data type where you store 
-	{string, int, double, char} 
+	// {string, int, double, char} 
 
 
     // wrong way of defining 
@@ -111,7 +114,7 @@ int main() {
 
 
 	array<int, 5> arr; 
-	arr.fill(10); -> /// {10, 10, 10, 10, 10} 
+	arr.fill(10); // -> /// {10, 10, 10, 10, 10} 
 
 
 	arr.at(index); 
