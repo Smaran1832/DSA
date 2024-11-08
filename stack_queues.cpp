@@ -266,7 +266,9 @@ vector<int> asteroidCollision(vector<int>& asteroids) {
     return st;
 }
 
-//minimum element in subarrays
+//sum of minimum element in all subarrays;
+//(prevoius smaller and next smaller index) we count how many times the current index will contribute 
+//similar problem is sum of range diff in subarrays; we will do "sum of max"-"sum of min"
     int sumSubarrayMins(vector<int>& arr) { 
         int n = arr.size();
     const int MOD = 1e9 + 7;
@@ -304,7 +306,7 @@ vector<int> asteroidCollision(vector<int>& asteroids) {
 
 
 //remove k digits to result in smallest
-// stack should be in increasing order else pop 
+// stack should be in monotonic decreasing order else pop 
     string removeKdigits(string num, int k) {
     string result;  // Use a string to build the result
     for (char digit : num) {
@@ -335,7 +337,7 @@ int maximum_area(vector<int> histo){
       //since the stack holds monotonic increasing index values the second stack holds left smaller while the size of array 
       //will serve as a right smaller index (since monotonic increasing means if greater it would have entered the stack,
       // if smaller we woudn't have the current element with us; it would have already been removed to maintain monotonicity)
-      for (int i = 0; i <= n; i++) {
+      for(int i=0; i<=n; i++) {
         while (!st.empty() && (i == n || histo[st.top()] >= histo[i])) {
           int height = histo[st.top()]; //current min height
           st.pop(); //current element 
@@ -412,7 +414,7 @@ public:
 };
 
 //Function to find if there is a celebrity in the party or not.
-    int celebrity(vector<vector<int> >& M, int n) 
+    int celebrity(vector<vector<int>> &M, int n) 
     {
         stack<int> st;
         //push all members into the stack
@@ -450,4 +452,8 @@ public:
         return (celeb)?candidate:-1;
         
         
+    }
+
+    int main(){
+        return 0;
     }

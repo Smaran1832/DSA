@@ -38,7 +38,7 @@ ListNode* reverseList(ListNode* head) {
         return prev;
     }
 
-//recursive
+//recursive; will only go to second last else return null
 ListNode* reverseList(ListNode* head) {
         if(head == NULL || head->next == NULL) return head;
         ListNode* prev = NULL;
@@ -99,7 +99,7 @@ ListNode* deleteMiddle(ListNode* head) {
     }    
 
 
-//similar problem add 1 to number; reverse, add1, reverse;
+//similar problem add 1 to number; reverse, add, reverse;
 //dummy node helps simplyfy the implementation in terms of implemetnation
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
       ListNode* dummyHead = new ListNode(0);
@@ -225,6 +225,7 @@ ListNode* DeleteNthNodefromEnd(ListNode* head, int N) {
 }    
 
 //return the starting node of the loop slow and fast need to start from head for this logic to work; 
+// once slow and fast enter the loop slow will move node while fast moves 2, consequentially minimizing the distance btw them eventually meeting again
 ListNode *detectCycle(ListNode *head) {
         if(head==nullptr || head->next==nullptr) return nullptr;
 

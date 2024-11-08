@@ -34,7 +34,7 @@ int setRighmostUnsetBit(int N)
 int UnsetRighmostSetBit(int N)
     {
         if (N == 0) return 1;  // Special case for 0, as it has no set bits.
-        return (N & (N - 1)));
+        return (N & (N - 1));
     }  
 
 int countSetBits(int n){
@@ -47,7 +47,8 @@ int countSetBits(int n){
         return counter;
     }  
 
- int minBitFlips(int start, int goal) {
+//convert start to goal; xor will give the bits needed to be flipped then we will simply count the number
+int minBitFlips(int start, int goal) {
         int x=start^goal;
         int counter=0;
         while(x!=0){
@@ -59,6 +60,7 @@ int countSetBits(int n){
         return counter;
     }      
 
+// all possible subsets powerset
 vector<vector<int>> subsets(vector<int>& nums) {
         int n=nums.size();
         vector<vector<int>> ans;
@@ -75,7 +77,7 @@ vector<vector<int>> subsets(vector<int>& nums) {
         return ans;
     }  
 
-//Xor Range
+//Xor Range from l to r, observation based solution
     int XOR_n(int n){
         if(n%4==1) return 1;
         else if(n%4==2) return n+1;
@@ -88,7 +90,8 @@ vector<vector<int>> subsets(vector<int>& nums) {
         return XOR_n(l-1)^XOR_n(r);
     }
 
-//2 numbers once rest twice; find differentiating bit then simple XOR
+
+//2 numbers once rest twice; find differentiating bit group them into 2 buckets then simple XOR, the final elements Xor will be the number
  vector<int> singleNumber(vector<int>& nums) {
     long XOR=0; //for the overflow condition in 2^-31
     for(int i=0;i<nums.size();i++){

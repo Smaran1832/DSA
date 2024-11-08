@@ -695,6 +695,8 @@ void pattern21_al(int num){
         }
         
     }
+
+//the numbers represent the minimum distance from the boundary    
 void pattern22_al(int num){
     /*
         Pattern
