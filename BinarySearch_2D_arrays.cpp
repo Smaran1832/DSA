@@ -1,6 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+//dont remove helper function for the below function
+int lowerBound(vector<int> arr, int n, int x) {
+    int low = 0, high = n - 1;
+    int ans = n;
+
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        // maybe an answer
+        if (arr[mid] >= x) {
+            ans = mid;
+            //look for smaller index on the left
+            high = mid - 1;
+        }
+        else {
+            low = mid + 1; // look on the right
+        }
+    }
+    return ans;
+}
+
 int rowWithMax1s(vector<vector<int>> &matrix, int n, int m) {
     int cnt_max = 0;
     int index = -1;
@@ -17,7 +38,7 @@ int rowWithMax1s(vector<vector<int>> &matrix, int n, int m) {
     return index;
 }
 
-//2D matrix binary search
+//2D matrix binary search  (2d-mapping 1 to n*n) Unlike assumption each number has unique number attached
 bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int start=0,r=matrix.size(),c=matrix[0].size();
         int end=(r*c)-1,mid;

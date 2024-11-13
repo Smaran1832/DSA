@@ -68,7 +68,7 @@ int characterReplacement(string s, int k) {
         return res;
     }
 
-//Binary subarrays with sum k, optimized to constant space 
+//Binary(0,1) subarrays with sum k, optimized to constant space 
     int numSubarraysWithLessThanSum(vector<int>& nums, int goal){
         if(goal<0) return 0; //necessary edge case
         int l=0,r=0,res=0,cumsum=0;
@@ -78,7 +78,7 @@ int characterReplacement(string s, int k) {
                     cumsum-=nums[l];
                     l++;
                 }
-            res+=(r-l+1);
+            res+=(r-l+1);  //number of subarrays tht can be formed less than goal within the window
             r++;
         }
         return res;
@@ -111,7 +111,7 @@ int characterReplacement(string s, int k) {
     }
 
 
-//number of all substrings that contain all 3 latters; Once all keys are encountered we can 
+//number of all substrings that contain all 3 letters; Once all keys are encountered we can 
 // start adding letters before it to generate larger valid arrays 
  int numberOfSubstrings(string s) {
         vector<int> mpp(3,-1);
@@ -197,7 +197,7 @@ int longestKSubstr(string s, int k) {
     }
 
 
-//map to track characters of the necessary string with counter logic (only previously inserted elements may reach 0 within the map)
+//map to track characters of the necessary string with counting logic (only previously inserted elements may reach 0 within the map)
 string minWindow(string s, string t) {
     unordered_map<char, int> mpp;
 

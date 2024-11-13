@@ -136,6 +136,52 @@ void dfs(int node,vector<vector<int>> &mat,vector<bool> &visited){
         return provincescount;
     }
 
+ int orangesRotting(vector<vector<int>>& grid) {
+    int n = grid.size();
+    int m = grid[0].size();
+    queue<pair<int, int>> rotten;
+    int freshCount = 0;
+
+    // Collect all initially rotten oranges and count fresh oranges
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (grid[i][j] == 2) {
+                rotten.push({i, j});
+            } else if (grid[i][j] == 1) {
+                freshCount++;
+            }
+        }
+    }
+
+    // Directions for the adjacent cells (up, down, left, right)
+    vector<pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int minutes = 0;
+
+    // Perform BFS
+    while (!rotten.empty() && freshCount > 0) {
+        int size = rotten.size(); //to make sure we search through the full breadth and then increase minutes 
+        for (int i = 0; i < size; i++) {
+            int x = rotten.front().first;
+            int y = rotten.front().second;
+            rotten.pop();
+
+            for (auto dir : directions) {
+                int nx = x + dir.first;
+                int ny = y + dir.second;
+
+                // Check if the new position is within bounds and contains a fresh orange
+                if (nx >= 0 && nx < n && ny >= 0 && ny < m && grid[nx][ny] == 1) {
+                    grid[nx][ny] = 2; // Mark the orange as rotten
+                    rotten.push({nx, ny});
+                    freshCount--; // Decrease the count of fresh oranges
+                }
+            }
+        }
+        minutes++;
+    }
+
+    return freshCount == 0 ? minutes : -1;
+}
 
 
 int main(){

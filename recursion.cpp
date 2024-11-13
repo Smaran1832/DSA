@@ -97,7 +97,7 @@ vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
     }
 
 
-//combination sum (pick / not pick) single picks allowed
+//combination sum with duplicates (pick / not pick) only single picks allowed per element
 void findCombination(int ind, int target, vector < int > & arr, vector < vector < int >> & ans, vector < int > & ds) {
   if (target == 0) {
     ans.push_back(ds);
