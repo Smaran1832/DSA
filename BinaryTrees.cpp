@@ -551,6 +551,47 @@ bool isSymmetricUtil(Node* left_sub,Node* right_sub){
         return isSymmetricUtil(root->left,root->right);
     }    
 
+//all paths to leaves
+void dfs_paths_to_leaves(Node* root,vector<int> &curr_path,vector<vector<int>> &ans){
+        
+        if(root==nullptr) return;
+        
+        curr_path.push_back(root->data);
+        
+        if(root->left==nullptr && root->right==nullptr){
+            ans.push_back(curr_path);
+        }
+        
+        dfs_paths_to_leaves(root->left, curr_path, ans);
+        dfs_paths_to_leaves(root->right, curr_path, ans);
+        
+        curr_path.pop_back();
+        
+        return;
+        
+    }
+    
+    vector<vector<int>> Paths(Node* root) {
+        vector<int> curr;
+        vector<vector<int>> ans;
+        
+        dfs_paths_to_leaves(root, curr, ans);
+        
+        return ans;
+    }
+
+Node* lowestCommonAncestor(Node* root, Node* p, Node* q) {
+        if(root == nullptr) return nullptr;
+        if(root==p) return p;
+        if(root==q) return q;
+        Node* left=lowestCommonAncestor(root->left,p,q);
+        Node* right=lowestCommonAncestor(root->right,p,q);
+        if((left==p && right==q) || (left==q && right==p)){
+            return root;
+        }else if(left==nullptr) return right;
+        else return left;
+    }
+
 int main() {
     // Creating a new node for the root of the 
     // binary tree using dynamic allocation
