@@ -592,6 +592,75 @@ Node* lowestCommonAncestor(Node* root, Node* p, Node* q) {
         else return left;
     }
 
+//Binary trees node children 
+//        0
+//     0     1
+//  0    1 2    3
+int widthOfBinaryTree(Node* root) {
+        if (!root) return 0;
+
+    queue<pair<Node*, unsigned long long>> q;
+    q.push({root, 0}); // Start with the root at position 0
+    unsigned long long maxWidth = 0;
+
+    while (!q.empty()) {
+        int size = q.size();
+        unsigned long long leftmost = q.front().second; // Index of the first node at the level
+        unsigned long long rightmost = q.back().second; // Index of the last node at the level
+        maxWidth = max(maxWidth, rightmost - leftmost + 1);
+
+        for (int i = 0; i < size; ++i) {
+            Node* node = q.front().first;
+            unsigned long long index = q.front().second - leftmost; // Normalize index
+            q.pop();
+
+            if (node->left) q.push({node->left, 2 * index}); // 
+            if (node->right) q.push({node->right, 2 * index + 1});
+        }
+    }
+
+    return maxWidth;
+    }    
+
+// child sum; parent is a sum of left and right
+    bool is_valid(Node * root){
+        if(root->left==nullptr && root->right==nullptr){
+            return true;
+        }else if(!(root->left==nullptr)){
+            if(root->right!=nullptr){
+                return (root->data == (root->left->data + root->right->data));
+            }else{
+                return root->data==root->left->data;
+            }
+        }else{
+            return root->data==root->right->data;
+        }
+    }
+    
+    int isSumProperty(Node *root)
+    {
+      if (root==nullptr) return true;
+      queue<Node*> breadth;
+      breadth.push(root);
+      
+      while(!breadth.empty()){
+          int len=breadth.size();
+          for(int i=0;i<len;i++){
+              Node* temp=breadth.front();
+              breadth.pop();
+              if(!is_valid(temp)) return 0;
+              else {
+                  if(temp->right!=nullptr) breadth.push(temp->right);
+                  if(temp->left!=nullptr) breadth.push(temp->left);
+              }
+          }
+      }
+      
+      return 1;
+      
+    }
+
+
 int main() {
     // Creating a new node for the root of the 
     // binary tree using dynamic allocation

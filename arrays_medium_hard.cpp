@@ -169,7 +169,7 @@ int subarraysWithXorK(vector<int> a, int k) {
         int x = xr ^ k;
         //find the needed xor (reverse engineer)
 
-        // add the occurrence of xr^k
+        // add the occurrence of xr^k to our number of subbarrays since that is the new number of possible answers
         // to the count:
         cnt += mpp[x];
         //if exist will be added to the count 
@@ -272,7 +272,7 @@ vector<int> findMissingRepeatingNumbers(vector<int> a) {
         }
     }
 
-    // Last step: Identify the numbers:
+    // Last step: Identify the numbers: repeating , missing
     int cnt = 0;
     for (int i = 0; i < n; i++) {
         if (a[i] == zero) cnt++;
